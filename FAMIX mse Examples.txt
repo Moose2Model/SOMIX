@@ -1,0 +1,15 @@
+(FAMIX.Method (id: 539 )
+  (name 'GET_SUBTREE')
+  (signature 'GET_SUBTREE')
+  (parentType (ref: 537))
+  (sourceAnchor (ref: 540)))
+(FAMIX.FileAnchor (id: 540 )
+  (element (ref: 539))
+  (fileName 'adt://RBU/sap/bc/adt/oo/classes/y0bw_cl_xf_auth/source/main#start=11,1'))
+(FAMIX.Invocation
+  (sender (ref: 33348))
+  (candidates (ref: 539))
+  (signature 'DUMMY'))
+(FAMIX.Access
+  (accessor (ref: 545))
+  (variable (ref: 547)))

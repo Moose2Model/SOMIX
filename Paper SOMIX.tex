@@ -1,0 +1,474 @@
+%% 
+%% Copyright 2007-2020 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+
+\documentclass[preprint,12pt]{elsarticle}
+%\documentclass[final,5p,times,twocolumn]{elsarticle} 
+% Adapt figure at about line 887 when documentclass is changed
+
+% Suppress display of footer ``Submitted to ...'', see https://tex.stackexchange.com/questions/35712/modify-footer-used-by-elsarticle-cls
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \def\@oddfoot{\centerline{\thepage}}%
+ \let\@evenfoot\@oddfoot}
+\makeatother
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times,authoryear]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+% To be able to enter URL with breaks:
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{framed}
+
+\sloppy % See anser in https://tex.stackexchange.com/questions/9107/how-can-i-make-my-text-never-go-over-the-right-margin-by-always-hyphenating-or-b  -  This prevents that SAP2Moose or Moose2Model overlap sometimes the right border.
+
+
+\newdefinition{definition}{Definition}
+
+
+\journal{Information and Software Technology}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \affiliation for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%            addressline={}, 
+%%            city={},
+%%            postcode={}, 
+%%            state={},
+%%            country={}}
+%% \fntext[label3]{}
+
+\title{The SOMIX Metamodel}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+\author[1]{Rainer Wolfgang Winkler\corref{cor1}%
+%\fnref{fn1}
+}
+\ead{rainer.winkler@cubeserv.com}
+\address[1]{CubeServ GmbH, Am Prime-Parc 4, 65479 Raunheim, Germany}
+
+\cortext[cor1]{Corresponding author}
+
+%\author{Rainer Wolfgang Winkler}
+%\adress{Test}
+%\affiliation{organization={CubeServ GmbH},%Department and Organization
+%            addressline={Am Prime-Parc 4}, 
+%            city={Raunheim},
+%            postcode={65479}, 
+%%            state={},
+%            country={Germany}}
+
+\begin{abstract}
+
+The SOMIX Metamodel is specified.
+
+\end{abstract}
+
+
+\begin{keyword}
+% Up to 6 keywords in british spelling. Avoid general and plural terms.
+%% keywords here, in the form: keyword \sep keyword
+
+%Program Comprehension \sep
+Software exploration \sep
+%Code Comprehension \sep
+Software maintenance \sep
+Software visualization \sep
+SAP development
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+
+\end{frontmatter}
+
+%% \linenumbers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{intro}
+The SOMIX Metamodel is specified in a similar way as FAMIX~\cite{r_Ducasse_2011}.
+
+\section{Software Metamodel}
+\subsection{Overview of SOMIX}
+
+
+\begin{figure} [h!] 
+\centering
+
+\includegraphics[width=1\columnwidth]{SOMIX_Classes.inkscape.eps} 
+\caption{
+The classes of the SOMIX Metamodel
+}
+\label{fig:InterfaceExample}   
+\end{figure}
+\subsection{Classes}
+
+\subsubsection{SOMIX.Entity}
+
+SOMIX.Entity is the abstract root class of the SOMIX metamodel entities.
+
+Fields:
+\begin{itemize}
+\item In SAP2Moose: The mse model where it is contained.
+\end{itemize}
+
+
+\subsubsection{SOMIX.Element extends SOMIX.Entity}
+
+SOMIX.Element is the abstract super class for all components or groupings in a software.
+
+Fields:
+\begin{itemize}
+\item name: A mandatory string with the name of the grouping or component in the system.
+\item uniqueName: A mandatory unique string with the name of the grouping or component in the system.\\
+It has to be the same for all extractors which extract a certain element. When this is not the case a mapping has to be provided to support matching elements.\\
+uniqueName is always in lower case when the names are not case sensitive in the extracted system.\\
+The combination of technicalType and uniqueName determines an element completly.
+\item title: An optional string with the title of the grouping or component in the system.
+\item technicalType: A string with information about the kind of grouping or component.
+\item linkToEditor: A link to open the specified element in an editor.
+\end{itemize}
+
+
+
+\subsubsection{SOMIX.Grouping extends SOMIX.Element}
+
+SOMIX.Grouping is used for all parts of a system that group other parts.
+
+\subsubsection{SOMIX.Component extends SOMIX.Element}
+
+SOMIX.Component is the abstract super class for code and data.
+
+Fields:
+\begin{itemize}
+\item isPartOf: Optional: When the component is part of another component: The instance of SOMIX.Component it is a part of. When the instance is of type SOMIX.Code this has also to be an instance of SOMIX.Code. When the instance is of type SOMIX.Data this has also to be an instance of SOMIX.Data.
+\item partSpecification: When isPartOf is set: A string where the kind of part is specified.
+\end{itemize}
+
+\subsubsection{SOMIX.Code extends SOMIX.Component}
+
+SOMIX.Code is used for all components of a system that have logic.
+
+\subsubsection{SOMIX.Data extends SOMIX.Component}
+
+SOMIX.Data is used for all components of a system that have no logic. This is normally data or a view on data.
+
+Fields:
+\begin{itemize}
+\item isPersistent: Set to true to mark that data is stored persistently. This allows it to mark database table visually in a system.
+\end{itemize}
+
+\subsubsection{SOMIX.ParentChild extends SOMIX.Entity}
+
+SOMIX.ParentChild is used to specify parent-child relations.
+
+Fields:
+\begin{itemize}
+\item parent: An instance of SOMIX.Grouping.
+\item child: An instance of SOMIX.Element or SOMIX.Grouping.
+\item isMain: A boolean that the parent child relation should be shown always in a diagram. Only a single parent of a child should be flagged like this. Diagram tools should display the parent of a child always when this flag is set. This assures for instance that a class is always displayed when an attribute or method of a class is displayed in a diagram.
+\end{itemize}
+
+
+\subsubsection{SOMIX.Coupling extends SOMIX.Entity}
+
+SOMIX.Coupling is the abstract super class of SOMIX.Call and SOMIX.Access.
+
+\subsubsection{SOMIX.Call extends SOMIX.Coupling}
+
+SOMIX.Call is used to specify calls of code by other code.
+
+Fields:
+\begin{itemize}
+\item caller: An instance of SOMIX.Code.
+\item called: An instance of SOMIX.Code.
+\end{itemize}
+
+\subsubsection{SOMIX.Access extends SOMIX.Coupling}
+SOMIX.Access is used to specify read or write accesses. When all three flags isWrite, isRead, and isDependent are false, the Access has to be regarded as not existing by an analyzing application. When multiple Accesses exists for the same combination of components an analyzing application has to combine this into a single access. The fields isWrite, isRead, and isDependent are true when they are true in at least one of the combined accesses.
+
+Fields:
+\begin{itemize}
+\item accessor: An instance of SOMIX.Component.
+\item accessed: An instance of SOMIX.Data.
+\item isWrite: A flag whether a write access is made or might be made.
+\item isRead: A flag whether a read access is made or might be made. 
+\item isDependent: A flag whether a further dependency exists or might exist.
+\end{itemize}
+
+
+
+\subsubsection{SOMIX.Extraction extends SOMIX.Entity}
+Contains fields with metadata of the extraction. This is mandatory because the mse model itself contains no metadata. It is proposed in Ducasse et al. to store metadata as part of the model~\cite{r_Ducasse_2011}.
+
+Fields:
+\begin{itemize}
+\item extractionTime: The date, time and timezone when the extraction was started.
+\item system: A string with the name of the extracted system.
+\end{itemize}
+
+
+\section*{Declaration of Competing Interests} 
+The author declares that he has no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Acknowledgments}
+
+This work was funded by CubeServ GmbH.
+Many colleagues provided valuable support to make this project possible.
+I thank
+Patrick Michels for providing resources and support.
+
+
+
+\begin{thebibliography}{00}
+
+\bibitem{r_SAP2Moose}
+SAP2Moose, \url{https://github.com/SAP2Moose/SAP2Moose} (accessed 30 December 2020).
+\bibitem{r_Moose2Model}
+Moose2Model, \url{https://github.com/Moose2Model/Moose2Model} (accessed 30 December 2020).
+%\bibitem{r_SAP}
+%SAP, \url{https://www.sap.com} (accessed 02 January 2021).
+%
+%\bibitem{r_FAMIX}
+%S. Demeyer, S. Ducasse, S. Tichelaar,  Why FAMIX and not UML, in: Proceedings of UML’99 (Vol. 1723), 1999.
+\bibitem{r_Ducasse_2011}
+S. Ducasse, N. Anquetil, M.U. Bhatti, A.C. Hora, J. Laval, T. Girba, MSE and FAMIX 3.0: An Interexchange Format and Source Code Model Family. Research Report, Nov 2011. [Online], available: \url{https://hal.inria.fr/hal-00646884}.
+
+%\bibitem{r_Washizaki_2018}
+%H. Washizaki, Y. G. Guéhéneuc, F. Khomh,  (2018). ProMeTA: a taxonomy for program metamodels in program reverse engineering. Empirical Software Engineering, 23(4), 2323-2358, 2018.
+%
+%\bibitem{r_Khan_2012}
+%T. Khan, H. Barthelm A. Ebert, P. Liggesmeyer,  Visualization and evolution of software architectures. In Visualization of Large and Unstructured Data Sets: Applications in Geospatial Planning, Modeling and Engineering-Proceedings of IRTG 1131 Workshop 2011. Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik, 2012.
+%\bibitem{r_Forward_2010}
+%A. Forward, T. C. Lethbridge, O. Badreddin,  Perceptions of Software Modeling: A Survey of Software Practitioners. In 5th Workshop from Code Centric to Model Centric: Evaluating the Effectiveness of MDD (C2M: EEMDD), 2010.
+%
+%\bibitem{r_Eades_1991}
+%P. Eades, W. Lai, K. Misue, K. Sugiyama, Preserving the mental map of a diagram, Technical Report IIAS-RR-91-16E, Fujitsu Laboratories, 1991, pp. 34-43.
+%
+%\bibitem{r_Furnas_1986}
+%G. W. Furnas, Generalized fisheye views. ACM SIGCHI Bulletin, 17(4), 16-23,  1986, \url{https://doi.org/10.1145/22339.22342}.
+%
+%\bibitem{r_WandWeber_1990}
+%Y. Wand and R. Weber, An ontological model of an information system. IEEE transactions on software engineering, 16(11), 1282-1292, 1990.
+%\bibitem{BungeVol4_1979}
+%M.Bunge, Treatise on basic philosophy: Ontology II: A world of systems (Vol. 4). Boston, MA: Reidel, 1979.
+%\bibitem{r_Penicina_2014}
+%L. Penicina, M. Kirikova, Towards controlling lawful states and events in business process models, in: 2014 IEEE 16th Conference on Business Informatics (Vol. 2, pp. 1-8), IEEE, \url{https://doi.org/10.1109/CBI.2014.18}.
+%\bibitem{r_Archimate_2.1}
+%The Open Group, Archimate 2.1 Specification, https://publications.opengroup.org (accessed 06 May 2021)
+%\bibitem{Bell_2004}
+%D. Bell, Uml basics: The component diagram, IBM Global Services, 2004.
+%\bibitem{Lethbridge_2004}
+%T. C. Lethbridge, S. Tichelaar, E. Plödereder,The dagstuhl middle metamodel: A schema for reverse engineering. Electronic Notes in Theoretical Computer Science, 94, 7-18., 2004.
+%\bibitem{r_Sager_2018}
+%T. Sager, Extraktion statischer SAP-Strukturinformationen in FAMIX als Grundlage für die Softwarevisualisierung, Bachelorarbeit, Universität Leipzig, Leipzig, Germany 2017, oai:qucosa:de:qucosa:31571, available: \url{https://core.ac.uk/display/226133939}.
+%
+%\bibitem{r_Sourcetrail}
+%Sourcetrail, \url{https://www.sourcetrail.com} (accessed 29 December 2020).
+%\bibitem{r_Deline_2010}
+%R. DeLine, G. Venolia, K. Rowan, Software development with code maps. Communications of the ACM, 2010, 53(8), 48-54, \url{https://doi.org/10.1145/1787234.1787250}.
+%\bibitem{r_Dwyer_2016}
+%T. Dwyer,  Network visualization as a higher-order visual analysis tool. IEEE computer graphics and applications, 2016, 36(6), 78-85, \url{https://doi.org/10.1109/MCG.2016.117}.
+%
+%\bibitem{r_Keller2007}
+%H. Keller, S. Krüger, ABAP objects, Sap Press, 2007.
+%
+%\bibitem{r_SAP_BW}
+%J. Christensen, J. Darlak, R. Harrington, L. Kong, M. Poles, C. Savelli, SAP BW/4HANA: An Introduction (SAP PRESS), SAP PRESS, 2017.
+%
+%\bibitem{r_Moose}
+%S. Ducasse, T. Gîrba, O. Nierstrasz,   Moose: an agile reengineering environment, in: Proceedings of the 10th European software engineering conference held jointly with 13th ACM SIGSOFT international symposium on Foundations of software engineering, 2005, pp. 99-102, \url{https://doi.org/10.1145/1081706.1081723}.
+%
+%\bibitem{r_ABAP-GlobalToLocal}
+%ABAP-GlobalToLocal, \url{https://github.com/SAP2Moose/ABAP-GlobalToLocal} (accessed 30 December 2020).
+%
+%\bibitem{r_Roassal}
+%A. Bergel, Agile Visualization, LULU Press, 2016. [Online], available: \url{http://AgileVisualization.com}.
+
+%\bibitem{r_Anquetil_2020}
+%N. Anquetil, A. Etien, M. H. Houekpetodji, B. Verhaeghe, S. Ducasse, C. Toullec, F. Djareddir, J. Sudich, M. Derras,
+%Modular Moose: A New Generation of Software Reverse Engineering Platform, International Conference on Software and Software Reuse (pp. 119-134), Springer, Cham, 2020, https://doi.org/10.1007/978-3-030-64694-3\_8.
+
+%\bibitem{r_Diehl_2007}
+%S. Diehl, Software visualization: visualizing the structure, behaviour, and evolution of software,
+%Springer Science \& Business Media, 2007.
+%\bibitem{r_Forward_2010}
+%A. Forward, T. C. Lethbridge, O. Badreddin,  Perceptions of Software Modeling: A Survey of Software Practitioners. In 5th Workshop from Code Centric to Model Centric: Evaluating the Effectiveness of MDD (C2M: EEMDD), 2010.
+%\bibitem{r_Khan_2012}
+%T. Khan, H. Barthelm A. Ebert, P. Liggesmeyer,  Visualization and evolution of software architectures. In Visualization of Large and Unstructured Data Sets: Applications in Geospatial Planning, Modeling and Engineering-Proceedings of IRTG 1131 Workshop 2011. Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik, 2012.
+
+%\bibitem{r_Eades_1991}
+%P. Eades, W. Lai, K. Misue, K. Sugiyama, Preserving the mental map of a diagram, Technical Report IIAS-RR-91-16E, Fujitsu Laboratories, 1991, pp. 34-43.
+
+
+%\bibitem{r_Moose_2}
+%Moose, \url{https://modularmoose.org/} (accessed 07 June 2021).
+%\bibitem{r_sotograph}
+%Sotograph by Hello2Morrow, http://www.hello2morrow.com/products/sotograph (accessed 22 January 2021)
+
+%%\bibitem{C4}
+%%S. Brown, The C4 Model for Software Architecture, 2018. Available: \url{https://c4model.com}.
+%%\bibitem{C4_Vazquez}
+%%A. Vázquez-Ingelmo, A. García Holgado, F. J. García Peñalvo, C4 model in a Software Engineering subject to ease the comprehension of UML and the software development process, in: 2020 IEEE Global Engineering Education Conference (EDUCON), (27-30 April 2020, Porto, Portugal), pp. 919-924, \url{https://doi.org/10.1109/EDUCON45650.2020.9125335}.
+%%\bibitem{Starke2007}
+%%G. Starke, P. Hruschka, Eine Strukturvorlage zur effektiven Dokumentation von Software- und IT Architekturen, Wirtschaftinformatik Proceedings 2007, 61.
+%%\bibitem{arc42}
+%%arc42, \url{https://arc42.org} (accessed 30 December 2020).
+
+
+%
+%
+
+%
+%
+%
+
+
+
+
+%\bibitem{r_CircuitDiagram}
+%R.W. Winkler, Manually Drawn Diagrams of the Static Structure of Software that are Easy to Keep Up to Date, unpublished.
+
+%\bibitem{r_Liu_2020}
+%X. Liu, R. Holmes, Exploring Developer Preferences for Visualizing External Information Within Source Code Editors, in 2020 Working Conference on Software Visualization (VISSOFT), 2020, pp. 27-37, IEEE, \url{https://doi.org/10.1109/VISSOFT51673.2020.00008}.
+
+
+%%\bibitem{r_Diehl_2007}
+%%S. Diehl, Software visualization: visualizing the structure, behaviour, and evolution of software,
+%%Springer Science \& Business Media, 2007.
+%%\bibitem{r_Forward_2010}
+%%A. Forward, T. C. Lethbridge, O. Badreddin,  Perceptions of Software Modeling: A Survey of Software Practitioners. In 5th Workshop from Code Centric to Model Centric: Evaluating the Effectiveness of MDD (C2M: EEMDD), 2010.
+%%\bibitem{r_Khan_2012}
+%%T. Khan, H. Barthelm A. Ebert, P. Liggesmeyer,  Visualization and evolution of software architectures. In Visualization of Large and Unstructured Data Sets: Applications in Geospatial Planning, Modeling and Engineering-Proceedings of IRTG 1131 Workshop 2011. Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik, 2012.
+%%\bibitem{r_Sourcetrail}
+%%Sourcetrail, \url{https://www.sourcetrail.com} (accessed 29 December 2020).
+%%\bibitem{r_Deline_2010}
+%%R. DeLine, G. Venolia, K. Rowan, Software development with code maps. Communications of the ACM, 2010, 53(8), 48-54, \url{https://doi.org/10.1145/1787234.1787250}.
+%%\bibitem{r_Dwyer_2016}
+%%T. Dwyer,  Network visualization as a higher-order visual analysis tool. IEEE computer graphics and applications, 2016, 36(6), 78-85, \url{https://doi.org/10.1109/MCG.2016.117}.
+%%\bibitem{r_Eades_1991}
+%%P. Eades, W. Lai, K. Misue, K. Sugiyama, Preserving the mental map of a diagram, Technical Report IIAS-RR-91-16E, Fujitsu Laboratories, 1991, pp. 34-43.
+%%\bibitem{r_SAP}
+%%SAP, \url{https://www.sap.com} (accessed 02 January 2021).
+%\bibitem{r_SAP2Moose}
+%SAP2Moose, \url{https://github.com/SAP2Moose/SAP2Moose} (accessed 30 December 2020).
+%\bibitem{r_Moose}
+%S. Ducasse, T. Gîrba, O. Nierstrasz,   Moose: an agile reengineering environment, in: Proceedings of the 10th European software engineering conference held jointly with 13th ACM SIGSOFT international symposium on Foundations of software engineering, 2005, pp. 99-102, \url{https://doi.org/10.1145/1081706.1081723}.
+%%\bibitem{r_Moose2Model}
+%%Moose2Model, \url{https://github.com/Moose2Model/Moose2Model} (accessed 30 December 2020).
+%\bibitem{r_sotograph}
+%Sotograph by Hello2Morrow, \url{http://www.hello2morrow.com/products/sotograph} (accessed 22 January 2021)
+%\bibitem{r_Penicina_2014}
+%L. Penicina, M. Kirikova, Towards controlling lawful states and events in business process models, in: 2014 IEEE 16th Conference on Business Informatics (Vol. 2, pp. 1-8), IEEE, \url{https://doi.org/10.1109/CBI.2014.18}.
+%%%\bibitem{C4}
+%%%S. Brown, The C4 Model for Software Architecture, 2018. Available: \url{https://c4model.com}.
+%%%\bibitem{C4_Vazquez}
+%%%A. Vázquez-Ingelmo, A. García Holgado, F. J. García Peñalvo, C4 model in a Software Engineering subject to ease the comprehension of UML and the software development process, in: 2020 IEEE Global Engineering Education Conference (EDUCON), (27-30 April 2020, Porto, Portugal), pp. 919-924, \url{https://doi.org/10.1109/EDUCON45650.2020.9125335}.
+%%%\bibitem{Starke2007}
+%%%G. Starke, P. Hruschka, Eine Strukturvorlage zur effektiven Dokumentation von Software- und IT Architekturen, Wirtschaftinformatik Proceedings 2007, 61.
+%%%\bibitem{arc42}
+%%%arc42, \url{https://arc42.org} (accessed 30 December 2020).
+%\bibitem{r_Keller2007}
+%H. Keller, S. Krüger, ABAP objects, Sap Press, 2007.
+%\bibitem{r_SAP_BW}
+%J. Christensen, J. Darlak, R. Harrington, L. Kong, M. Poles, C. Savelli, SAP BW/4HANA: An Introduction (SAP PRESS), SAP PRESS, 2017.
+%\bibitem{r_FAMIX}
+%S. Demeyer, S. Ducasse, S. Tichelaar,  Why FAMIX and not UML, in: Proceedings of UML’99 (Vol. 1723), 1999.
+%\bibitem{r_Ducasse_2011}
+%S. Ducasse, N. Anquetil, M.U. Bhatti, A.C. Hora, J. Laval, T. Girba, MSE and FAMIX 3.0: An Interexchange Format and Source Code Model Family. Research Report, Nov 2011. [Online], available: \url{https://hal.inria.fr/hal-00646884}.
+%\bibitem{r_Sager_2018}
+%T. Sager, Extraktion statischer SAP-Strukturinformationen in FAMIX als Grundlage für die Softwarevisualisierung, Bachelorarbeit, Universität Leipzig, Leipzig, Germany 2017, oai:qucosa:de:qucosa:31571, available: \url{https://core.ac.uk/display/226133939}.
+%\bibitem{r_ABAP-GlobalToLocal}
+%ABAP-GlobalToLocal, \url{https://github.com/SAP2Moose/ABAP-GlobalToLocal} (accessed 30 December 2020).
+%\bibitem{r_Roassal}
+%A. Bergel, Agile Visualization, LULU Press, 2016. [Online], available: \url{http://AgileVisualization.com}.
+%\bibitem{r_CircuitDiagram}
+%R.W. Winkler, Circuit~Diagram~for~Software -- Reverse-engineered customizable, complete, and abstract visualization~of~dependencies which preserve the mental~map and a prototype based on Moose, to be published.
+%%\bibitem{r_Liu_2020}
+%%X. Liu, R. Holmes, Exploring Developer Preferences for Visualizing External Information Within Source Code Editors, in 2020 Working Conference on Software Visualization (VISSOFT), 2020, pp. 27-37, IEEE, \url{https://doi.org/10.1109/VISSOFT51673.2020.00008}.
+
+\end{thebibliography}
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.
