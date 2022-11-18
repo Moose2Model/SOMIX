@@ -98,7 +98,7 @@
 %%            country={}}
 %% \fntext[label3]{}
 
-\title{The SOMIX Metamodel}
+\title{The SOMIX 2 Metamodel}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -135,7 +135,7 @@
 
 \begin{abstract}
 
-The SOMIX Metamodel is specified.
+The SOMIX 2 Metamodel is specified.
 
 \end{abstract}
 
@@ -165,13 +165,23 @@ SAP development
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 \label{intro}
-The SOMIX Metamodel is specified in a similar way as FAMIX~\cite{r_Ducasse_2011}.
+The SOMIX Metamodel was specified in a similar way as FAMIX~\cite{r_Ducasse_2011}. 
+SOMIX~2 is a more general metamodel which resembles the BWW model~\cite{r_WandWeber_1990,BungeVol4_1979} for software systems. 
 This metamodel is a concrete specification of a type of metamodel described in~\cite{r_Metamodel_Preprint_2}.
 Such a metamodel can be read and displayed by the JavaScript version~\cite{r_Moose2Model2} of Moose2Model~\cite{r_Moose2Model}. The extraction tool SAP2Moose~\cite{r_SAP2Moose} provides currently models in the SOMIX format.
 
 \section{Software Metamodel}
-\subsection{Overview of SOMIX}
+\subsection{Overview of SOMIX~2}
+A model which is described by the SOMIX~2 metamodel contains components and couplings between these components.
+In a minimal version no specification of a component is required. 
+It is also not required to specify the character of a coupling.
+To aid in the understanding of a model it is proposed to specify whether a component is code or data. 
+That a component is used as a type is not specified explicitly. It is uses as a type when it is referenced in a coupling in the field  typedBy.
+That a component is used as grouping is not specified explicitly. It acts as a grouping when it is referenced in a coupling in the field parent.
+It is also proposed to specify whether a coupling is a parent-child relation, a call, an access or a typing.
 
+Further specifications are possible by adding custom fields. These custom fields have to begin with an underscore.
+Applications which handle and display SOMIX~2 models are not required to handle custom fields.
 
 \begin{figure} [h!] 
 \centering
@@ -194,9 +204,9 @@ Fields:
 \end{itemize}
 
 
-\subsubsection{SOMIX.Element extends SOMIX.Entity}
+\subsubsection{SOMIX.Component extends SOMIX.Entity}
 
-SOMIX.Element is the abstract super class for all components or groupings in a software.
+SOMIX.Component is the abstract super class for all components in a software.
 
 Fields:
 \begin{itemize}
@@ -205,45 +215,22 @@ Fields:
 It has to be the same for all extractors which extract a certain element. When this is not the case a mapping has to be provided to support matching elements.\\
 uniqueName is always in lower case when the names are not case sensitive in the extracted system.\\
 The combination of technicalType and uniqueName determines an element completly.
-\item title: An optional string with the title of the grouping or component in the system.
-\item technicalType: A string with information about the kind of grouping or component.
+\item title: A string with the title of the grouping or component in the system.
+\item technicalType: A mandatory string with information about the kind of grouping or component.
 \item linkToEditor: A link to open the specified element in an editor.
-\end{itemize}
-
-
-
-\subsubsection{SOMIX.Grouping extends SOMIX.Element}
-
-SOMIX.Grouping is used for all parts of a system that group other parts.
-
-\subsubsection{SOMIX.Component extends SOMIX.Element}
-
-SOMIX.Component is the abstract super class for code and data.
-
-Fields:
-\begin{itemize}
-\item isPartOf: Optional: When the component is part of another component: The instance of SOMIX.Component it is a part of. When the instance is of type SOMIX.Code this has also to be an instance of SOMIX.Code. When the instance is of type SOMIX.Data this has also to be an instance of SOMIX.Data.
+\item hasCode: true when the component contains code
+\item hasData: true when the component contains data
+\item isPersistent: true when the component is persisten. In case of code this flag should in most cases be true. In case of data it marks data which is stored permanently, for instance in a database.
+\item isPartOf: Optional: When the component is part of another component: The instance of SOMIX.Component it is a part of. 
 \item partSpecification: When isPartOf is set: A string where the kind of part is specified.
 \end{itemize}
 
-\subsubsection{SOMIX.Code extends SOMIX.Component}
 
-SOMIX.Code is used for all components of a system that have logic.
 
-\subsubsection{SOMIX.Data extends SOMIX.Component}
+\subsubsection{SOMIX.Coupling extends SOMIX.Entity}
 
-SOMIX.Data is used for all components of a system that have no logic. This is normally data or a view on data.
+Parent-child relations:
 
-Fields:
-\begin{itemize}
-\item isPersistent: Set to true to mark that data is stored persistently. This allows it to mark database table visually in a system.
-\end{itemize}
-
-\subsubsection{SOMIX.ParentChild extends SOMIX.Entity}
-
-SOMIX.ParentChild is used to specify parent-child relations.
-
-Fields:
 \begin{itemize}
 \item parent: An instance of SOMIX.Grouping.
 \item child: An instance of SOMIX.Element or SOMIX.Grouping.
@@ -251,32 +238,29 @@ Fields:
 \end{itemize}
 
 
-\subsubsection{SOMIX.Coupling extends SOMIX.Entity}
+Calls:
 
-SOMIX.Coupling is the abstract super class of SOMIX.Call and SOMIX.Access.
-
-\subsubsection{SOMIX.Call extends SOMIX.Coupling}
-
-SOMIX.Call is used to specify calls of code by other code.
-
-Fields:
 \begin{itemize}
 \item caller: An instance of SOMIX.Code.
 \item called: An instance of SOMIX.Code.
 \end{itemize}
 
-\subsubsection{SOMIX.Access extends SOMIX.Coupling}
-SOMIX.Access is used to specify read or write accesses. When all three flags isWrite, isRead, and isDependent are false, the Access has to be regarded as not existing by an analyzing application. When multiple Accesses exists for the same combination of components an analyzing application has to combine this into a single access. The fields isWrite, isRead, and isDependent are true when they are true in at least one of the combined accesses.
+Accesses are used to specify read or write accesses. When all three flags isWrite, isRead, and isDependent are false, the Access has to be regarded as not existing by an analyzing application. When multiple Accesses exists for the same combination of components an analyzing application has to combine this into a single access. The fields isWrite, isRead, and isDependent are true when they are true in at least one of the combined accesses.
 
-Fields:
 \begin{itemize}
 \item accessor: An instance of SOMIX.Component.
 \item accessed: An instance of SOMIX.Data.
 \item isWrite: A flag whether a write access is made or might be made.
 \item isRead: A flag whether a read access is made or might be made. 
-\item isDependent: A flag whether a further dependency exists or might exist.
 \end{itemize}
 
+It is possible to specify that a component types another component.
+In that case the typed component reads informations from the typing component to determine it's own properties.
+
+\begin{itemize}
+\item typedBy: The component which is used for typing.
+\item typed: The component which receives typing information.
+\end{itemize}
 
 
 \subsubsection{SOMIX.Extraction extends SOMIX.Entity}
@@ -304,10 +288,14 @@ Patrick Michels for providing resources and support.
 \begin{thebibliography}{00}
 \bibitem{r_Ducasse_2011}
 S. Ducasse, N. Anquetil, M.U. Bhatti, A.C. Hora, J. Laval, T. Girba, MSE and FAMIX 3.0: An Interexchange Format and Source Code Model Family. Research Report, Nov 2011. [Online], available: \url{https://hal.inria.fr/hal-00646884}.
+\bibitem{r_WandWeber_1990}
+Y. Wand and R. Weber, An ontological model of an information system. IEEE transactions on software engineering, 16(11), 1282-1292, 1990.
+\bibitem{BungeVol4_1979}
+M.Bunge, Treatise on basic philosophy: Ontology II: A world of systems (Vol. 4). Boston, MA: Reidel, 1979.
 \bibitem{r_Metamodel_Preprint_2}
 Winkler, Rainer Wolfgang, A Software Metamodel Restricted to Key Aspects of a Software System for Developers and a Method to Keep Manually Drawn Diagrams Up-to-Date and Correct. Available at SSRN: https://ssrn.com/abstract=4049604 or http://dx.doi.org/10.2139/ssrn.4049604.
 \bibitem{r_Moose2Model2}
-Moose2Model, \url{https://github.com/Moose2Model/Moose2Model2} (accessed 12 September 2022).
+Moose2Model2, \url{https://github.com/Moose2Model/Moose2Model2} (accessed 12 September 2022).
 \bibitem{r_Moose2Model}
 Moose2Model, \url{https://github.com/Moose2Model/Moose2Model} (accessed 30 December 2020).
 \bibitem{r_SAP2Moose}
